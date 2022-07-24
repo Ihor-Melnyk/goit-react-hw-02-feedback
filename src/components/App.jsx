@@ -1,13 +1,12 @@
 import { Component } from 'react';
-import Container from './Container';
+import style from './App.module.scss';
+// import Container from './Container';
 import Section from './Section';
 import FeedbackOptions from './Feedback';
 import Statistics from './Statistics';
 import Notification from './Notification';
 
 export class App extends Component {
-  static propTypes = {};
-
   state = {
     good: 0,
     neutral: 0,
@@ -31,13 +30,15 @@ export class App extends Component {
     return ((good / total) * 100).toFixed(0);
   };
 
+  options = () => Object.keys(this.state);
+
   render() {
     const { good, neutral, bad } = this.state;
     return (
-      <Container>
+      <div className={style.container}>
         <Section title="Please leave feedback">
           <FeedbackOptions
-            options={Object.keys(this.state)}
+            options={this.options()}
             onLeaveFeedback={this.handleButtonClick}
           />
         </Section>
@@ -54,7 +55,7 @@ export class App extends Component {
             />
           )}
         </Section>
-      </Container>
+      </div>
     );
   }
 }
